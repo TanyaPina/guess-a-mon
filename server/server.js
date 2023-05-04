@@ -31,12 +31,12 @@ app.post('/api/students', async (req, res) => {
         const newStudent = {
             firstname: req.body.firstname,
             lastname: req.body.lastname,
-            iscurrent: req.body.iscurrent
+            is_current: req.body.is_current
         };
         //console.log([newStudent.firstname, newStudent.lastname, newStudent.iscurrent]);
         const result = await db.query(
             'INSERT INTO students(firstname, lastname, is_current) VALUES($1, $2, $3) RETURNING *',
-            [newStudent.firstname, newStudent.lastname, newStudent.iscurrent],
+            [newStudent.firstname, newStudent.lastname, newStudent.is_current],
         );
         console.log(result.rows[0]);
         res.json(result.rows[0]);
@@ -67,12 +67,12 @@ app.put('/api/students/:studentId', async (req, res) =>{
     //console.log(req.params);
     //This will be the id that I want to find in the DB - the student to be updated
     const studentId = req.params.studentId
-    const updatedStudent = { id: req.body.id, firstname: req.body.firstname, lastname: req.body.lastname, iscurrent: req.body.is_current}
+    const updatedStudent = { id: req.body.id, firstname: req.body.firstname, lastname: req.body.lastname, is_current: req.body.is_current}
     console.log("In the server from the url - the student id", studentId);
     console.log("In the server, from the react - the student to be edited", updatedStudent);
     // UPDATE students SET lastname = "something" WHERE id="16";
     const query = `UPDATE students SET firstname=$1, lastname=$2, is_current=$3 WHERE id=${studentId} RETURNING *`;
-    const values = [updatedStudent.firstname, updatedStudent.lastname, updatedStudent.iscurrent];
+    const values = [updatedStudent.firstname, updatedStudent.lastname, updatedStudent.is_current];
     try {
       const updated = await db.query(query, values);
       console.log(updated.rows[0]);
