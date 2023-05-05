@@ -8,7 +8,7 @@ export default function Root(){
     return(
         <div className="App">
         {/* <MyNavBar/> */}
-        <ListStudents/>
+        {/*<ListStudents/>*/}
         <Home/>
         <Outlet/>
         </div>
