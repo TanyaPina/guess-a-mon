@@ -51,6 +51,10 @@ button.btn.btn-primary {
   margin-top: 25px;
 }
 
+.login {
+  background-color: #A51717;
+}
+
 .myicon {
   stroke: rgb(243, 121, 7);
   color: rgb(243, 121, 7);
