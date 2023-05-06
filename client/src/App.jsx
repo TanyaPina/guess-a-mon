@@ -22,8 +22,10 @@ function App(){
 */
 function App() {
 
-  const { isAuthenticated} = useAuth0();
+  const { isAuthenticated, isLoading} = useAuth0();
 
+  if (isLoading) return <div>Loading...</div>
+  
   return (
     <div className="App">
       {/* {user ? <Root/> : <Home/>} */}
