@@ -6,8 +6,8 @@ import ListStudents from './components/ListStudents'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from './components/pages/Root';
 import Home from './components/pages/Home';
-
-
+import { useAuth0 } from '@auth0/auth0-react';
+/*
 const router = createBrowserRouter([
   {
     path:"/",
@@ -19,17 +19,16 @@ const router = createBrowserRouter([
 function App(){
   return <RouterProvider router={router}/>;
 }
-/*
+*/
 function App() {
 
   return (
     <div className="App">
-      <MyNavBar />
-      <ListStudents />
-      <Home/>
+      {/* {user ? <Root/> : <Home/>} */}
+      <Root/>
     </div>
-  )
+  );
 }
-*/
+
 
 export default App

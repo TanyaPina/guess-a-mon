@@ -7,9 +7,9 @@ import ListStudents from "../ListStudents";
 export default function Root(){
     return(
         <div className="App">
-        {/* <MyNavBar/> */}
+        <MyNavBar/>
         {/*<ListStudents/>*/}
-        <Home/>
+        {/* <Home/> */}
         <Outlet/>
         </div>
     );
