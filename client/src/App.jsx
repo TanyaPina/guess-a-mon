@@ -22,10 +22,14 @@ function App(){
 */
 function App() {
 
+  const { isAuthenticated} = useAuth0();
+
   return (
     <div className="App">
       {/* {user ? <Root/> : <Home/>} */}
-      <Root/>
+      {!isAuthenticated ? <Home/> : <Root/>}
+      {/* <Home /> */}
+      {/* <Root/> */}
     </div>
   );
 }

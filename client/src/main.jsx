@@ -5,6 +5,7 @@ import './index.css'
 import { Auth0Provider } from '@auth0/auth0-react'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from './components/pages/Root'
+import Home from './components/pages/Home'
 
 const DOMAIN = import.meta.env.VITE_APP_AUTH0_DOMAIN;
 const CLIENTID = import.meta.env.VITE_APP_AUTH0_CLIENT_ID;
@@ -13,7 +14,11 @@ const IDENTIFIER = import.meta.env.VITE_APP_AUTH0_IDENTIFIER;
 const router = createBrowserRouter([
   {
     path:"/",
-    element: <Root />,
+    element: <Home/>,
+  },
+  {
+    path:"/game",
+    element: <Root/>,
   },
 ]);
 
