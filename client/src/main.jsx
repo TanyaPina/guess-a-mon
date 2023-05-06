@@ -16,10 +16,6 @@ const router = createBrowserRouter([
     path:"/",
     element: <Home/>,
   },
-  {
-    path:"/game",
-    element: <Root/>,
-  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
