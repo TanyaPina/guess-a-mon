@@ -4,7 +4,6 @@ import App from './App'
 import './index.css'
 import { Auth0Provider } from '@auth0/auth0-react'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Root from './components/pages/Root'
 import Home from './components/pages/Home'
 
 const DOMAIN = import.meta.env.VITE_APP_AUTH0_DOMAIN;

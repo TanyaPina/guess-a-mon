@@ -6,7 +6,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 function MyNavBar(props) {
 
-  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+  const { logout, isAuthenticated } = useAuth0();
   
   return (
     <>
@@ -25,7 +25,7 @@ function MyNavBar(props) {
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
             Signed in as: <a href="#login">Cristina Rodriguez</a>
-            {!isAuthenticated ? (<button onClick={() => loginWithRedirect()}>Log In</button>) : (<button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+            {isAuthenticated && (<button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
               Log Out
               </button>)}
           </Navbar.Text>

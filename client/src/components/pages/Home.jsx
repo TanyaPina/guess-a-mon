@@ -23,8 +23,7 @@ const Home = (props) => {
                     backgroundColor: "white",
                 }}>
                     <Header>Guess-a-mon</Header>
-                    <p>You can catch 'em all, but can you guess them all?</p>
-                    
+                    <p>You can catch 'em all, but can you guess them all?</p> 
                     <button class="login" style={{marginBottom:".5em"}} onClick={() => loginWithRedirect()}>Log In</button>
                 </Container>
             </div>
