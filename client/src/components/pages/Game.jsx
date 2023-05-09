@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const Game = () => {
 
@@ -6,17 +6,20 @@ const Game = () => {
 
     const loadPokemon = () => {
         fetch("https://pokeapi.co/api/v2/pokemon/ditto")
-        .then((response) => response.json())
-        .then((pokemon) => {
-            setPokemon(pokemon);
-        });
+            .then((response) => response.json())
+            .then((pokemon) => {
+                setPokemon(pokemon);
+            });
     }
 
-     return (
-       <div className="mybody">
-        <h2>Hello</h2>
-       </div>
-     );
+    useEffect(() => {
+        loadPokemon();
+    }, []);
+    return (
+        <div className="mybody">
+            <h2>Hello</h2>
+        </div>
+    );
 }
 
 
