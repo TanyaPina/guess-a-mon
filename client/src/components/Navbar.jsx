@@ -2,10 +2,12 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Logo from '../assets/BlueTechtonicaWord.png'
-
+import { useAuth0 } from '@auth0/auth0-react';
 
 function MyNavBar(props) {
 
+  const { logout, isAuthenticated } = useAuth0();
+  
   return (
     <>
     <Navbar data-testid="navbar" bg="dark" variant="dark" sticky="top">
@@ -23,6 +25,9 @@ function MyNavBar(props) {
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
             Signed in as: <a href="#login">Cristina Rodriguez</a>
+            {isAuthenticated && (<button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+              Log Out
+              </button>)}
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>
