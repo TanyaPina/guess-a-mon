@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import dittoJson from "../../sampleresponse/ditto.json"
+import GameContainer from './GameContainer';
 
 const Game = () => {
 
@@ -21,8 +22,8 @@ const Game = () => {
     return (
         <div className="mybody">
             <div className="poketainer">
-                <h2>Pokemon</h2>
-                <p>The name of the pokemon is {pokemon.name}</p>
+                <h2>Pokemon {pokemon.name}</h2>
+                <GameContainer pokemon={pokemon}/>
             </div>
         </div>
     );
