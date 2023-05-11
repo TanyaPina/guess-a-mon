@@ -1,11 +1,16 @@
 import React from "react";
 import MyNavBar from "../Navbar";
-import Game from "./Game";
-export default function Root(){
-    return(
-        <div className="App">
-        <MyNavBar/>
-        <Game/>
-        </div>
+import { Outlet } from "react-router-dom";
+
+export default function Root() {
+    return (
+        <>
+            <div>
+                <MyNavBar />
+                <div>
+                    <Outlet />
+                </div>
+            </div>
+        </>
     );
 };
