@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Header } from 'semantic-ui-react'
 
-const GameContainer = (pokemon) => {
+const GameContainer = ({pokemon}) => {
 
-    const pokemonSprite = (pokemon) =>{
-        return '{pokemon.pokemon.sprites.back_default}'
-    }
+    // const pokemonSprite = (pokemon) =>{
+    //     return '{pokemon.pokemon.sprites.back_default}'
+    // }
 
 
     return (
@@ -13,8 +13,8 @@ const GameContainer = (pokemon) => {
         style={{
             backgroundColor: "white",
         }}>
-           <p>Hello! The pokemon is {pokemon.pokemon.name}</p>
-           <img src={pokemon.pokemon.sprites.front_default}/>
+           <p>Hello! The pokemon is {pokemon.name}</p>
+           <img src={pokemon.sprites.front_default}/>
            
         </Container>
     );
