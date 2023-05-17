@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import dittoJson from "../../sampleresponse/ditto.json"
 import GameContainer from './GameContainer';
-import firstfifteenJson from "../../sampleresponse/firstfifteen.json"
+import firstFifteenJson from "../../sampleresponse/firstfifteen.json"
 
 const Game = () => {
 
-    //const [pokemon, setPokemon] = useState(dittoJson);
-    const [pokemonList, setPokemonList] = useState([]);
-    //const [isLoading, setIsLoading] = useState(false);
-    
-  
+   const [pokemonList, setPokemonList] = useState([]);
+ 
+    // const getPokemonList = () => {
+    //     console.log("calling api")
+    //     fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
+    //         .then((response) => response.json())
+    //         .then((pokemonListResponse) => {
+    //             console.log("calling api response", pokemonListResponse)
+    //             shuffledPokemonList(pokemonListResponse.results);
+    //         });
+    // }
+
     const getPokemonList = () => {
-        console.log("calling api")
-        fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
-            .then((response) => response.json())
-            .then((pokemonListResponse) => {
-                console.log("calling api response", pokemonListResponse)
-                shuffledPokemonList(pokemonListResponse.results);
-            });
+        shuffledPokemonList(firstFifteenJson.results);
     }
 
     const shuffledPokemonList = (pokemonListParam) => {
@@ -27,8 +28,6 @@ const Game = () => {
             .sort((a, b) => a.sort - b.sort)
             .map(({ value }) => value);
         setPokemonList(shuffled);
-        getFourPokemon(shuffled);
-        //setIsLoading(true);
         console.log("line34", pokemonList);
         //setIsLoading(false);
     }
@@ -47,8 +46,7 @@ const Game = () => {
                 {/* <h2>Pokemon {pokemon.name}</h2>
                 // <GameContainer pokemon={pokemon}/> */}
                      {/* <p>Hello this is my pokemon {pokemonList[0]?.name}</p> */}
-                     { pokemonList.length == 0 ? null : <p>Hello this is my pokemon {pokemonList[0].name} </p> }
-                     <GameContainer pokemonList={pokemonList} shuffledPokemonList={shuffledPokemonList}/>
+                     <GameContainer pokemonList={pokemonList} shufflePokemonList={shuffledPokemonList}/>
             </div>
         </div>
     );
