@@ -9,7 +9,6 @@ const CLIENTID = import.meta.env.VITE_APP_AUTH0_CLIENT_ID;
 const IDENTIFIER = import.meta.env.VITE_APP_AUTH0_IDENTIFIER;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
     <Auth0Provider
    domain={DOMAIN}
    clientId={CLIENTID}
@@ -21,5 +20,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
    > 
     <App />
     </Auth0Provider>
-  </React.StrictMode>,
 )
