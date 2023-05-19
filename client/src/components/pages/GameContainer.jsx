@@ -1,32 +1,22 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Container, Header } from 'semantic-ui-react'
+import { Button, Container } from 'semantic-ui-react'
 
-const GameContainer = ({pokemonList, shufflePokemonList}) => {
+const GameContainer = ({ pokemonList, shufflePokemonList }) => {
 
-const [fourPokemon, setFourPokemon] = useState([]);
-const [correctOption, setCorrectOption] = useState({});
-const [answered,setAnswered] = useState(false);
-const [styledImage, setStyledImage] = useState({filter: "brightness(0)",});
-const [correctUrl, setCorrectUrl] = useState("");
-    // const pokemonSprite = (pokemon) =>{
-    //     return '{pokemon.pokemon.sprites.back_default}'
-    // }
-
-    // const getFourPokemon = (shuffled) => {
-    //     let fourPokeArr = [...shuffled];
-    //     // const fourPokemonResult = shuffled.splice(0,4);
-    //     // setFourPokemon(fourPokemonResult);
-    //     setFourPokemon(fourPokeArr.splice(0,4));
-    // }
+    const [fourPokemon, setFourPokemon] = useState([]);
+    const [correctOption, setCorrectOption] = useState({});
+    const [answered, setAnswered] = useState(false);
+    const [styledImage, setStyledImage] = useState({ filter: "brightness(0)", });
+    const [correctUrl, setCorrectUrl] = useState("");
 
     useEffect(() => {
-        setFourPokemon([...pokemonList].splice(0,4));
+        setFourPokemon([...pokemonList].splice(0, 4));
     }, [pokemonList]);
 
-    useEffect(() =>{
+    useEffect(() => {
         setCorrectOption(fourPokemon[Math.floor(Math.random() * fourPokemon.length)]);
     }, [fourPokemon])
-    
+
     useEffect(() => {
         const pokeNumber = correctOption?.url ? getPokeNumber(correctOption.url) : 214;
         getCorrectImage(pokeNumber);
@@ -36,48 +26,45 @@ const [correctUrl, setCorrectUrl] = useState("");
         let correctOptionNum = url;
         const numberRegEx = /(\d+)\/$/;
         return ((correctOptionNum.match(numberRegEx) || [])[1]);
-    } 
+    }
 
     const getCorrectImage = (number) => {
         setCorrectUrl(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png`);
     }
-    
+
     const handleAnswerClick = (selectedName) => {
         setAnswered(true);
         setStyledImage({
             filter: null,
         })
-        if (correctOption.name === selectedName){
+        if (correctOption.name === selectedName) {
             console.log(" you guessed correct!")
         } else {
-        console.log("wrong");
-    }
+            console.log("wrong");
+        }
     }
 
     const handleShuffleClick = () => {
         setAnswered(false);
-        setStyledImage({filter: "brightness(0)"});
+        setStyledImage({ filter: "brightness(0)" });
         shufflePokemonList(pokemonList);
     }
 
     return (
         <Container textAlign='center'
-        style={{
-            backgroundColor: "white",
-        }}>
-           {/* <p>Hello! The pokemon is {pokemon.name}</p> */}
-           {/* { pokemonList.length == 0 ? null : <p>Hello this is my pokemon {pokemonList[0].name} </p> } */}
-           {/* <img src={pokemonList.sprites.front_default}/> */}
-           <img src={correctUrl} style={styledImage}/> 
-           <p><Button onClick={handleShuffleClick}> Shuffle </Button></p>
-           {fourPokemon.length >= 4 && <div>
-           <Button disabled={answered} onClick={()=>{handleAnswerClick(fourPokemon[0].name)}}>{fourPokemon[0].name} </Button>
-           <Button disabled={answered} onClick={()=>{handleAnswerClick(fourPokemon[1].name)}}>{fourPokemon[1].name} </Button>
-           <Button disabled={answered} onClick={()=>{handleAnswerClick(fourPokemon[2].name)}}>{fourPokemon[2].name} </Button>
-           <Button disabled={answered} onClick={()=>{handleAnswerClick(fourPokemon[3].name)}}>{fourPokemon[3].name} </Button>
-           <p>Hello! The correct pokemon is {correctOption?.name}</p>
-           </div>
-}
+            style={{
+                backgroundColor: "white",
+            }}>
+            <img src={correctUrl} style={styledImage} />
+            <p><Button onClick={handleShuffleClick}> Shuffle </Button></p>
+            {fourPokemon.length >= 4 && <div>
+                <Button disabled={answered} onClick={() => { handleAnswerClick(fourPokemon[0].name) }}>{fourPokemon[0].name} </Button>
+                <Button disabled={answered} onClick={() => { handleAnswerClick(fourPokemon[1].name) }}>{fourPokemon[1].name} </Button>
+                <Button disabled={answered} onClick={() => { handleAnswerClick(fourPokemon[2].name) }}>{fourPokemon[2].name} </Button>
+                <Button disabled={answered} onClick={() => { handleAnswerClick(fourPokemon[3].name) }}>{fourPokemon[3].name} </Button>
+                {/* the following is for testing :  <p>Hello! The correct pokemon is {correctOption?.name}</p> */}
+            </div>
+            }
         </Container>
     );
 }
