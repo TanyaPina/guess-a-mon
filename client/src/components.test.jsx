@@ -12,7 +12,7 @@ import {render, screen} from '@testing-library/react';
 //   expect(<Root/>).toBeDefined();
 // });
 
-//TODO: tests if root renders - not working because of {user.name} being undefined
+//TODO: tests if NavBar renders - not working because of {user.name} being undefined
 // test('NavBar renders correctly', () => {
 //   render(<MyNavBar />);
 //   expect(<MyNavBar/>).toBeDefined();
