@@ -4,6 +4,17 @@ import 'semantic-ui-css/semantic.min.css'
 import Root from './components/pages/Root';
 import Home from './components/pages/Home';
 import { useAuth0 } from '@auth0/auth0-react';
+import { Route, createBrowserRouter, createRoutesFromElements,RouterProvider } from "react-router-dom"; 
+import Game from './components/pages/Game';
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+  <Route path="/" element={<Root />}>
+    <Route index element={<Game/>} />
+    <Route path="favorites" element={<div>Favorites</div>}/>
+    </Route>
+  )
+  )
 
 function App() {
 
@@ -13,7 +24,7 @@ function App() {
   
   return (
     <div className="App">
-      {!isAuthenticated ? <Home/> : <Root/>}
+      {!isAuthenticated ? <Home/> : <RouterProvider router={router}/>}      
     </div>
   );
 }
