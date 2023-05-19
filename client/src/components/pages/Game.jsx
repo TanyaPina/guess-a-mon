@@ -27,14 +27,11 @@ const Game = () => {
             .sort((a, b) => a.sort - b.sort)
             .map(({ value }) => value);
         setPokemonList(shuffled);
-        console.log("line34", pokemonList);
-
     }
 
 
     useEffect(() => {
         getPokemonList();
-        console.log("line40", pokemonList);
     }, []);
 
 

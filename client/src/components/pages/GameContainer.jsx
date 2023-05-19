@@ -23,14 +23,12 @@ const GameContainer = ({ pokemonList, shufflePokemonList }) => {
     }, [correctOption])
 
     const getPokeNumber = (url) => {
-        let correctOptionNum = url;
         const numberRegEx = /(\d+)\/$/;
-        return ((correctOptionNum.match(numberRegEx) || [])[1]);
+        return ((url.match(numberRegEx) || [])[1]);
     }
 
-    const getCorrectImage = (number) => {
+    const getCorrectImage = (number) =>
         setCorrectUrl(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png`);
-    }
 
     const handleAnswerClick = (selectedName) => {
         setAnswered(true);
@@ -38,9 +36,7 @@ const GameContainer = ({ pokemonList, shufflePokemonList }) => {
             filter: null,
         })
         if (correctOption.name === selectedName) {
-            console.log(" you guessed correct!")
         } else {
-            console.log("wrong");
         }
     }
 
