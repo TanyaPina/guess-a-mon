@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import GameContainer from './GameContainer';
 import firstFifteenJson from "../../sampleresponse/firstfifteen.json"
 import ListStudents from '../ListStudents';
+import { useAuth0 } from '@auth0/auth0-react';
 
-const Game = () => {
+const Game = ({setUserObj}) => {
 
     const [pokemonList, setPokemonList] = useState([]);
+    const { isAuthenticated, isLoading, user} = useAuth0();
 
     //the following is for the api call:
     // const getPokemonList = () => {
@@ -39,7 +41,7 @@ const Game = () => {
     return (
         <div className="mybody">
             <div className="poketainer">
-                <GameContainer pokemonList={pokemonList} shufflePokemonList={shuffledPokemonList} />
+                <GameContainer pokemonList={pokemonList} shufflePokemonList={shuffledPokemonList} setUserObj={setUserObj} />
                 <ListStudents/>
             </div>
         </div>

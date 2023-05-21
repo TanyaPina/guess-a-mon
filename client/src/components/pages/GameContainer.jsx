@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Button, Container } from 'semantic-ui-react'
 import { useAuth0 } from "@auth0/auth0-react";
 
-const GameContainer = ({ pokemonList, shufflePokemonList}) => {
+const GameContainer = ({ pokemonList, shufflePokemonList, setUserObj}) => {
 
     const [fourPokemon, setFourPokemon] = useState([]);
     const [correctOption, setCorrectOption] = useState({});
@@ -16,27 +16,30 @@ const GameContainer = ({ pokemonList, shufflePokemonList}) => {
     console.log("gamecont", user,isAuthenticated);
     
     const sendUser = (user) => {
-        return fetch("/api/users", {
-          method: "POST", 
-            body: JSON.stringify({user}), 
+        //passes state variable to body
+        fetch("/api/users", {
+          //matches the route in the backend
+          //, it sends a POST request to the "/api/user" endpoint with the user data in the request body.
+          //{user:user}, changed this for proxy
+          method: "POST", //post method to add resource to db
+          body: JSON.stringify({ user }), //stringifying the user obj, body is set to a JSON-encoded string containing the user data.
           headers: {
-            "Content-type": "application/json", 
+            "Content-type": "application/json", //The headers are set to indicate that the content type of the request is JSON.
           },
         })
-          .then((response) => {
-            return response.json();
-          }) 
+          .then((response) => response.json()) //we want to get the response convert to json
           .then((data) => {
+            //get that data and
             console.log(data);
           });
       };
-    
+            
       useEffect(() => {
         if (isAuthenticated) {
         setUserObj(user);
           sendUser(user);
         }
-      }, [isAuthenticated, user]);
+      }, [isAuthenticated, user, setUserObj]);
 
     useEffect(() => {
         setFourPokemon([...pokemonList].splice(0, 4));
@@ -61,6 +64,7 @@ const GameContainer = ({ pokemonList, shufflePokemonList}) => {
 
     const handleAnswerClick = (selectedName) => {
         setUserObj(user);
+        sendUser(user);
         setAnswered(true);
         setStyledImage({
             filter: null,
