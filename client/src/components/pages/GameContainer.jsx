@@ -51,7 +51,7 @@ const GameContainer = ({ pokemonList, shufflePokemonList }) => {
             style={{
                 backgroundColor: "white",
             }}>
-            <img src={correctUrl} style={styledImage} />
+            <img className="pokeimage" src={correctUrl} style={styledImage} />
             <p><Button onClick={handleShuffleClick}> Shuffle </Button></p>
             {fourPokemon.length >= 4 && <div>
                 <Button disabled={answered} onClick={() => { handleAnswerClick(fourPokemon[0].name) }}>{fourPokemon[0].name} </Button>
