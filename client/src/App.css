@@ -5,10 +5,18 @@
 }
 
 .mybody {
+  min-height: 100vh;
   display: flex;
-  gap: 3em;
-  padding: 1em;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
 }
+
+/* .poketainer {
+  display: flex;
+  gap: 1em;
+  padding: 1em;
+} */
 
 a.navbar-brand {
   margin-inline-start: -5em;
