@@ -1,10 +1,11 @@
 import React from "react";
 import { Container, Header } from 'semantic-ui-react'
 import { useAuth0 } from "@auth0/auth0-react";
+import { useState, useEffect } from "react";
 
-const Home = (props) => {
-
-    const { loginWithRedirect } = useAuth0();
+const Home = () => {
+    
+    const { loginWithRedirect, isAuthenticated, user } = useAuth0();
 
     return (
         <>
@@ -24,7 +25,7 @@ const Home = (props) => {
                 }}>
                     <Header>Guess-a-mon</Header>
                     <p>You can catch 'em all, but can you guess them all?</p> 
-                    <button class="login" style={{marginBottom:".5em"}} onClick={() => loginWithRedirect()}>Log In</button>
+                    <button class="login" style={{marginBottom:".5em"}} onClick={() => loginWithRedirect() }>Log In</button>
                 </Container>
             </div>
 

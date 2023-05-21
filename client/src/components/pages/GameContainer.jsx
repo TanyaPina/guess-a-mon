@@ -1,13 +1,42 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Container } from 'semantic-ui-react'
+import { useAuth0 } from "@auth0/auth0-react";
 
-const GameContainer = ({ pokemonList, shufflePokemonList }) => {
+const GameContainer = ({ pokemonList, shufflePokemonList}) => {
 
     const [fourPokemon, setFourPokemon] = useState([]);
     const [correctOption, setCorrectOption] = useState({});
     const [answered, setAnswered] = useState(false);
     const [styledImage, setStyledImage] = useState({ filter: "brightness(0)", });
     const [correctUrl, setCorrectUrl] = useState("");
+
+    const { isAuthenticated, user } = useAuth0();
+    const [userObj, setUserObj] = useState(null);
+
+    console.log("gamecont", user,isAuthenticated);
+    
+    const sendUser = (user) => {
+        return fetch("/api/users", {
+          method: "POST", 
+            body: JSON.stringify({user}), 
+          headers: {
+            "Content-type": "application/json", 
+          },
+        })
+          .then((response) => {
+            return response.json();
+          }) 
+          .then((data) => {
+            console.log(data);
+          });
+      };
+    
+      useEffect(() => {
+        if (isAuthenticated) {
+        setUserObj(user);
+          sendUser(user);
+        }
+      }, [isAuthenticated, user]);
 
     useEffect(() => {
         setFourPokemon([...pokemonList].splice(0, 4));
@@ -31,6 +60,7 @@ const GameContainer = ({ pokemonList, shufflePokemonList }) => {
         setCorrectUrl(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png`);
 
     const handleAnswerClick = (selectedName) => {
+        setUserObj(user);
         setAnswered(true);
         setStyledImage({
             filter: null,

@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react'
 import * as ioicons from 'react-icons/io5'
 import MyForm from './Form';
 import Student from './Student';
+import StudentDupe from './StudentDupe';
 
 const ListStudents = () => {
 
     // this is my original state with an array of students 
     const [students, setStudents] = useState([]);
+    const [favoritePokemon, setFavoritePokemon] = useState([]);
 
     //this is the state needed for the UpdateRequest
     const [editingStudent, setEditingStudent] = useState(null)
@@ -20,8 +22,18 @@ const ListStudents = () => {
             });
     }
 
+    const loadFavorites = () => {
+        // A function to fetch the list of students that will be load anytime that list change
+        fetch("/api/favorites")
+            .then((response) => response.json())
+            .then((favorites) => {
+                setFavoritePokemon(favorites);
+            });
+    }
+
     useEffect(() => {
         loadStudents();
+        loadFavorites();
     }, []);
 
     const onSaveStudent = (newStudent) => {
@@ -60,6 +72,7 @@ const ListStudents = () => {
 
 
     return (
+        <>
         <div className="mybody">
         <div className="list-students">
             <h2>Techtonica Participants </h2>
@@ -68,9 +81,15 @@ const ListStudents = () => {
                     return <li key={student.id}> <Student student={student} toDelete={onDelete} toUpdate={onUpdate} /></li>
                 })}
             </ul>
+            <ul>
+                {favoritePokemon.map((favorite) => {
+                    return <li key={favorite.id}> <StudentDupe  favorite={favorite}/></li>
+                })}
+            </ul>
         </div>
         <MyForm key={editingStudent ? editingStudent.id : null} onSaveStudent={onSaveStudent} editingStudent={editingStudent} onUpdateStudent={updateStudent} />
         </div>
+        </>
     );
 }
 

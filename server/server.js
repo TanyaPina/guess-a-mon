@@ -16,12 +16,32 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(REACT_BUILD_DIR, "index.html"));
 });
 
+app.get("/api/users", cors (), async (req, res) => {
+    try {
+      const { rows: users } = await db.query("SELECT * FROM users");
+      res.send(users);
+      console.log("line23server")
+    } catch (e) {
+      return res.status(400).json({ e });
+    }
+  });
+
+
+  app.get("/api/favorites", cors() , async (req, res) => {
+    try {
+      const { rows: favorites } = await db.query("SELECT * FROM favorites");
+      res.send(favorites);
+      console.log("line34server")
+    } catch (e) {
+      return res.status(400).json({ e });
+    }
+  });
+
 // create the post request for users in the endpoint '/api/users'
 app.post('/api/users', async (req, res) => {
     try {
         const userAccount = req.body.user;
         const userEmail = await db.query("SELECT * from users where email = $1", [userAccount.email,])
-        const { rows: students } = await db.query('SELECT * FROM students');
         if (userEmail.rows.length === 0){
             const newUser = {
                 username : req.body.user.name,
@@ -37,6 +57,24 @@ app.post('/api/users', async (req, res) => {
         return res.status(400).json({ e });
     }
 });
+
+app.get('/api/students', cors(), async (req, res) => {
+    // const STUDENTS = [
+  
+    //     { id: 1, firstName: 'Lisa', lastName: 'Lee' },
+    //     { id: 2, firstName: 'Eileen', lastName: 'Long' },
+    //     { id: 3, firstName: 'Fariba', lastName: 'Dadko' },
+    //     { id: 4, firstName: 'Cristina', lastName: 'Rodriguez' },
+    //     { id: 5, firstName: 'Andrea', lastName: 'Trejo' },
+    // ];
+    // res.json(STUDENTS);
+    try {
+      const { rows: students } = await db.query('SELECT * FROM students');
+      res.send(students);
+    } catch (e) {
+      return res.status(400).json({ e });
+    }
+  });
 
 // create the POST request
 app.post('/api/students', async (req, res) => {
