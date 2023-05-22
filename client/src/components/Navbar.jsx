@@ -15,6 +15,10 @@ function MyNavBar(props) {
       <Container>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
+        <Nav className="me-auto">
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="favorites">Favorites</Nav.Link>
+          </Nav>
           <Navbar.Text>
              <a href="#login" style={{marginRight: "20px"}}>Welcome, {user.name}</a>
             {isAuthenticated && (<Button inverted onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>

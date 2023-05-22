@@ -57,7 +57,7 @@ console.log(userFavorites);
         <>
         <div className="mybody">
         <div className="list-students">
-            <h2>Techtonica Participants </h2>
+            <h2>Favorites</h2>
             <ul>
                 {/* {students.map((student) => {
                     return <li key={student.id}> <Student student={student} toDelete={onDelete} toUpdate={onUpdate} /></li>
