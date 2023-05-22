@@ -1,11 +1,10 @@
 import React from "react";
 import { Container, Header } from 'semantic-ui-react'
 import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect } from "react";
 
 const Home = () => {
 
-    const { loginWithRedirect, isAuthenticated, user } = useAuth0();
+    const { loginWithRedirect } = useAuth0();
 
     return (
         <>

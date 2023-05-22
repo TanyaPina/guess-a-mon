@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import * as ioicons from 'react-icons/io5'
-import MyForm from './Form';
-import Student from './Student';
+import MyForm from '../Form';
+import Student from '../Student';
 
-const ListStudents = () => {
+const ListFavorites = () => {
 
     // this is my original state with an array of students 
     const [students, setStudents] = useState([]);
@@ -75,4 +75,4 @@ const ListStudents = () => {
 }
 
 
-export default ListStudents
+export default ListFavorites;

@@ -8,7 +8,6 @@ import { useEffect } from "react";
 export default function Root({setUserObj}) {
     const {isAuthenticated, user } = useAuth0();
 
-   console.log(user.name);
     const sendUser = (user) => {
         fetch("/api/users", {
             method: "POST",
@@ -17,29 +16,19 @@ export default function Root({setUserObj}) {
                 "Content-type": "application/json",
             },
         })
-            .then((response) => response.json()) //we want to get the response convert to json
+            .then((response) => response.json()) 
             .then((data) => {
-                //get that data and
                 console.log(data);
             });
     };
 
-    // const handleLogin = async () => {
-    //     await loginWithRedirect({
-    //       appState: {
-    //         returnTo: "/", //went to user profile before
-    //       },
-    //     });
-    //     setUserObj(user); //// Pass the user object to setUserObj
-    //     //Pass the user data to the target page using URL parameters
-    //   };
-
     useEffect(() => {
         if (isAuthenticated) {
-            setUserObj(user); // Set the user object after successful login
+            setUserObj(user); 
             sendUser(user);
         }
     }, [isAuthenticated, user, setUserObj]);
+
     return (
         <>
             <div>

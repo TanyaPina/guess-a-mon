@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import GameContainer from './GameContainer';
 import firstFifteenJson from "../../sampleresponse/firstfifteen.json"
-import ListStudents from '../ListStudents.jsx'
+import ListStudents from './ListFavorites.jsx'
 
 const Game = () => {
 
@@ -40,7 +40,6 @@ const Game = () => {
         <div className="mybody">
             <div className="poketainer">
                 <GameContainer pokemonList={pokemonList} shufflePokemonList={shuffledPokemonList} />
-                <ListStudents/>
             </div>
         </div>
     );

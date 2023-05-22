@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Container } from 'semantic-ui-react'
+import { useAuth0 } from "@auth0/auth0-react";
 
-const GameContainer = ({ pokemonList, shufflePokemonList }) => {
+const GameContainer = ({ pokemonList, shufflePokemonList}) => {
 
     const [fourPokemon, setFourPokemon] = useState([]);
     const [correctOption, setCorrectOption] = useState({});
@@ -9,6 +10,9 @@ const GameContainer = ({ pokemonList, shufflePokemonList }) => {
     const [styledImage, setStyledImage] = useState({ filter: "brightness(0)", });
     const [correctUrl, setCorrectUrl] = useState("");
 
+    const { isAuthenticated, user } = useAuth0();
+
+    
     useEffect(() => {
         setFourPokemon([...pokemonList].splice(0, 4));
     }, [pokemonList]);
@@ -31,6 +35,8 @@ const GameContainer = ({ pokemonList, shufflePokemonList }) => {
         setCorrectUrl(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png`);
 
     const handleAnswerClick = (selectedName) => {
+        setUserObj(user);
+        sendUser(user);
         setAnswered(true);
         setStyledImage({
             filter: null,
