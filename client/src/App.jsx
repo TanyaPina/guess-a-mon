@@ -17,7 +17,7 @@ function App() {
 
   const router = createBrowserRouter(
     createRoutesFromElements(
-    <Route path="/" element={<Root />}>
+    <Route path="/" element={<Root setUserObj={setUserObj}/>}>
       <Route index element={<Game/>} />
       <Route path="favorites" element={<div>Favorites</div>}/>
       </Route>

@@ -3,42 +3,9 @@ import { Container, Header } from 'semantic-ui-react'
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect } from "react";
 
-const Home = ({ setUserObj }) => {
+const Home = () => {
 
     const { loginWithRedirect, isAuthenticated, user } = useAuth0();
-
-    isAuthenticated && console.log(user.name);
-    const sendUser = (user) => {
-        fetch("/api/users", {
-            method: "POST",
-            body: JSON.stringify({ user }),
-            headers: {
-                "Content-type": "application/json",
-            },
-        })
-            .then((response) => response.json()) //we want to get the response convert to json
-            .then((data) => {
-                //get that data and
-                console.log(data);
-            });
-    };
-
-    const handleLogin = async () => {
-        await loginWithRedirect({
-          appState: {
-            returnTo: "/", //went to user profile before
-          },
-        });
-        setUserObj(user); //// Pass the user object to setUserObj
-        //Pass the user data to the target page using URL parameters
-      };
-
-    useEffect(() => {
-        if (isAuthenticated) {
-            setUserObj(user); // Set the user object after successful login
-            sendUser(user);
-        }
-    }, [isAuthenticated, user, setUserObj]);
 
     return (
         <>
@@ -58,7 +25,7 @@ const Home = ({ setUserObj }) => {
                 }}>
                     <Header>Guess-a-mon</Header>
                     <p>You can catch 'em all, but can you guess them all?</p> 
-                    <button class="login" style={{marginBottom:".5em"}} onClick={() => handleLogin() }>Log In</button>
+                    <button class="login" style={{marginBottom:".5em"}} onClick={() => loginWithRedirect() }>Log In</button>
                 </Container>
             </div>
 
