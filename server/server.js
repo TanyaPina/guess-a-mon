@@ -16,7 +16,72 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(REACT_BUILD_DIR, "index.html"));
 });
 
-// create the get request for students in the endpoint '/api/students'
+app.get('/api/user', cors (), async (req, res) => {
+    try {
+        const { rows: users } = await db.query("SELECT * FROM users");
+      res.send(users);
+      console.log("line23server")
+    } catch (e) {
+      return res.status(400).json({ e });
+    }
+  });
+
+// create the post request for users in the endpoint '/api/users'
+app.post('/api/user', async (req, res) => {
+    try {
+        const userAccount = req.body.user;
+        const userEmail = await db.query("SELECT * from users where email = $1", [userAccount.email,])
+        if (userEmail.rows.length === 0){
+            const newUser = {
+                username : req.body.user.name,
+                email: req.body.user.email,
+            };
+            const result = await db.query("INSERT INTO users(username, email) VALUES ($1,$2) RETURNING *",
+            [newUser.username, newUser.email]
+          );
+        }
+        console.log("line34", result.rows[0]);
+        res.json(result.rows[0]);
+    } catch (e) {
+        return res.status(400).json({ e });
+    }
+});
+
+// app.get("/api/user/favorites/:email", cors() , async (req, res) => {
+//   try {
+//     const { email }  = req.params;
+//     const { rows: favorites } = await db.query("SELECT * f.userid FROM favorites f JOIN users u ON u.id = f.id WHERE email = $1",
+//     [email]);
+//     res.send(favorites);
+//   } catch (e) {
+//     return res.status(400).json({ e });
+//   }
+// });
+app.get("/api/user/favorites/:email", cors() , async (req, res) => {
+  try {
+    const { email }  = req.params;
+    const { rows: favorites } = await db.query("SELECT pokecode FROM favorites JOIN users ON favorites.userid = users.id WHERE email = $1",
+    [email]);
+    res.send(favorites);
+  } catch (e) {
+    return res.status(400).json({ e });
+  }
+});
+
+app.post('/api/addFavorite/:pokecode', async (req, res) => {
+  try {
+      const newFavorite = {id: req.params.id};
+      const result = await db.query("INSERT INTO favorites(pokecode) VALUES ($1) RETURNING *",
+          [newFavorite.pokecode],
+        );
+      console.log("line67", result.rows[0]);
+      res.json(result.rows[0]);
+  } catch (e) {
+      return res.status(400).json({ e });
+  }
+});
+
+//create the get request for students in the endpoint '/api/students'
 app.get('/api/students', async (req, res) => {
     try {
         const { rows: students } = await db.query('SELECT * FROM students');
@@ -25,6 +90,8 @@ app.get('/api/students', async (req, res) => {
         return res.status(400).json({ e });
     }
 });
+
+
 
 // create the POST request
 app.post('/api/students', async (req, res) => {
