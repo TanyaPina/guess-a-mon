@@ -21,7 +21,7 @@ function App() {
     createRoutesFromElements(
     <Route path="/" element={<Root setUserObj={setUserObj}/>}>
       <Route index element={<Game/>} />
-      <Route path="favorites" element={<ListFavorites/>}/>
+      <Route path="favorites" element={<ListFavorites setUserFavorites={setUserFavorites}/>}/>
       </Route>
     )
     )

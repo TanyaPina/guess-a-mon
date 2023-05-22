@@ -26,9 +26,10 @@ app.get('/api/users', cors (), async (req, res) => {
     }
   });
 
-  app.get("/api/favorites", cors() , async (req, res) => {
+  app.get("/api/user/favorites/:email", cors() , async (req, res) => {
     try {
-      const { rows: favorites } = await db.query("SELECT * FROM favorites");
+      const { email }  = req.params;
+      const { rows: favorites } = await db.query("SELECT * FK_USERS_FAVORITES FROM favorites f JOIN users u ON u.id = f.id WHERE email = $1",);
       res.send(favorites);
       console.log("line34server")
     } catch (e) {

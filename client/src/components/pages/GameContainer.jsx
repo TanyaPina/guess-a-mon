@@ -35,8 +35,6 @@ const GameContainer = ({ pokemonList, shufflePokemonList}) => {
         setCorrectUrl(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png`);
 
     const handleAnswerClick = (selectedName) => {
-        setUserObj(user);
-        sendUser(user);
         setAnswered(true);
         setStyledImage({
             filter: null,

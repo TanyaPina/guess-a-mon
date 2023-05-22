@@ -6,6 +6,7 @@ import { useEffect } from "react";
 
 
 export default function Root({setUserObj}) {
+    
     const {isAuthenticated, user } = useAuth0();
 
     const sendUser = (user) => {
