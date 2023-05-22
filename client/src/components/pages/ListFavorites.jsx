@@ -3,8 +3,8 @@ import * as ioicons from 'react-icons/io5'
 import MyForm from '../Form';
 import Student from '../Student';
 
-const ListFavorites = ({setUserFavorites}) => {
-
+const ListFavorites = ({userFavorites, setUserFavorites}) => {
+console.log(userFavorites);
     // this is my original state with an array of students 
     const [students, setStudents] = useState([]);
 
@@ -20,15 +20,10 @@ const ListFavorites = ({setUserFavorites}) => {
             });
     }
 
-    useEffect(() => {
-        loadStudents();
-    }, []);
-
     const onSaveStudent = (newStudent) => {
         //console.log(newStudent, "From the parent - List of Students");
         setStudents((students) => [...students, newStudent]);
     }
-
 
     //A function to control the update in the parent (student component)
     const updateStudent = (savedStudent) => {

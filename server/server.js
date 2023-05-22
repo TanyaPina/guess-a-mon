@@ -47,12 +47,22 @@ app.post('/api/user', async (req, res) => {
     }
 });
 
+// app.get("/api/user/favorites/:email", cors() , async (req, res) => {
+//   try {
+//     const { email }  = req.params;
+//     const { rows: favorites } = await db.query("SELECT * f.userid FROM favorites f JOIN users u ON u.id = f.id WHERE email = $1",
+//     [email]);
+//     res.send(favorites);
+//   } catch (e) {
+//     return res.status(400).json({ e });
+//   }
+// });
 app.get("/api/user/favorites/:email", cors() , async (req, res) => {
   try {
     const { email }  = req.params;
-    const { rows: favorites } = await db.query("SELECT * FK_USERS_FAVORITES FROM favorites f JOIN users u ON u.id = f.id WHERE email = $1",);
+    const { rows: favorites } = await db.query("SELECT pokecode FROM favorites JOIN users ON favorites.userid = users.id WHERE email = $1",
+    [email]);
     res.send(favorites);
-    console.log("line55server")
   } catch (e) {
     return res.status(400).json({ e });
   }
