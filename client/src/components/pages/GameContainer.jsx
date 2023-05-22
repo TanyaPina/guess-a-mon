@@ -63,6 +63,7 @@ const GameContainer = ({ pokemonList, shufflePokemonList}) => {
                 <Button disabled={answered} onClick={() => { handleAnswerClick(fourPokemon[2].name) }}>{fourPokemon[2].name} </Button>
                 <Button disabled={answered} onClick={() => { handleAnswerClick(fourPokemon[3].name) }}>{fourPokemon[3].name} </Button>
                 {/* the following is for testing :  <p>Hello! The correct pokemon is {correctOption?.name}</p> */}
+                <p><Button style={{marginTop: "1em", marginBottom: "1em"}} onClick={handleShuffleClick}> Favorite </Button></p>
             </div>
             }
         </Container>
