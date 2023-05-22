@@ -28,7 +28,7 @@ function App() {
   
   return (
     <div className="App">
-      {!isAuthenticated ? <Home setUserObj={setUserObj}/> : <RouterProvider router={router}/>}      
+      {!isAuthenticated ? <Home /> : <RouterProvider router={router}/>}      
     </div>
   );
 }

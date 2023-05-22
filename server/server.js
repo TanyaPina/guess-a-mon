@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(REACT_BUILD_DIR, "index.html"));
 });
 
-app.get("/api/users", cors (), async (req, res) => {
+app.get('/api/users', cors (), async (req, res) => {
     try {
         const { rows: users } = await db.query("SELECT * FROM users");
       res.send(users);
@@ -47,7 +47,7 @@ app.post('/api/users', async (req, res) => {
                 email: req.body.user.email,
             };
             const result = await db.query("INSERT INTO users(username, email) VALUES ($1,$2) RETURNING *",
-            [newUser.name, newUser.email]
+            [newUser.username, newUser.email]
           );
         }
         console.log("line34", result.rows[0]);
@@ -56,15 +56,15 @@ app.post('/api/users', async (req, res) => {
         return res.status(400).json({ e });
     }
 });
-// create the get request for students in the endpoint '/api/students'
-// app.get('/api/students', async (req, res) => {
-//     try {
-//         const { rows: students } = await db.query('SELECT * FROM students');
-//         res.send(students);
-//     } catch (e) {
-//         return res.status(400).json({ e });
-//     }
-// });
+//create the get request for students in the endpoint '/api/students'
+app.get('/api/students', async (req, res) => {
+    try {
+        const { rows: students } = await db.query('SELECT * FROM students');
+        res.send(students);
+    } catch (e) {
+        return res.status(400).json({ e });
+    }
+});
 
 
 
