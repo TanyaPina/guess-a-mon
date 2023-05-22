@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import * as ioicons from 'react-icons/io5'
 import MyForm from '../Form';
-import Student from '../Student';
+import FavoriteCard from '../FavoriteCard';
 
 const ListFavorites = ({userFavorites, setUserFavorites}) => {
 console.log(userFavorites);
@@ -55,17 +55,22 @@ console.log(userFavorites);
 
 
     return (
+        <>
         <div className="mybody">
         <div className="list-students">
             <h2>Techtonica Participants </h2>
             <ul>
-                {students.map((student) => {
+                {/* {students.map((student) => {
                     return <li key={student.id}> <Student student={student} toDelete={onDelete} toUpdate={onUpdate} /></li>
+                })} */}
+                  {userFavorites.map((favorite) => {
+                    return <li key={favorite.id}> <FavoriteCard favorite={favorite} toDelete={onDelete} toUpdate={onUpdate} /></li>
                 })}
             </ul>
         </div>
-        <MyForm key={editingStudent ? editingStudent.id : null} onSaveStudent={onSaveStudent} editingStudent={editingStudent} onUpdateStudent={updateStudent} />
+        {/* <MyForm key={editingStudent ? editingStudent.id : null} onSaveStudent={onSaveStudent} editingStudent={editingStudent} onUpdateStudent={updateStudent} /> */}
         </div>
+        </>
     );
 }
 
