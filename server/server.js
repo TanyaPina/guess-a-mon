@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(REACT_BUILD_DIR, "index.html"));
 });
 
-app.get('/api/users', cors (), async (req, res) => {
+app.get('/api/user', cors (), async (req, res) => {
     try {
         const { rows: users } = await db.query("SELECT * FROM users");
       res.send(users);
@@ -26,19 +26,8 @@ app.get('/api/users', cors (), async (req, res) => {
     }
   });
 
-  app.get("/api/user/favorites/:email", cors() , async (req, res) => {
-    try {
-      const { email }  = req.params;
-      const { rows: favorites } = await db.query("SELECT * FK_USERS_FAVORITES FROM favorites f JOIN users u ON u.id = f.id WHERE email = $1",);
-      res.send(favorites);
-      console.log("line34server")
-    } catch (e) {
-      return res.status(400).json({ e });
-    }
-  });
-
 // create the post request for users in the endpoint '/api/users'
-app.post('/api/users', async (req, res) => {
+app.post('/api/user', async (req, res) => {
     try {
         const userAccount = req.body.user;
         const userEmail = await db.query("SELECT * from users where email = $1", [userAccount.email,])
@@ -57,6 +46,31 @@ app.post('/api/users', async (req, res) => {
         return res.status(400).json({ e });
     }
 });
+
+app.get("/api/user/favorites/:email", cors() , async (req, res) => {
+  try {
+    const { email }  = req.params;
+    const { rows: favorites } = await db.query("SELECT * FK_USERS_FAVORITES FROM favorites f JOIN users u ON u.id = f.id WHERE email = $1",);
+    res.send(favorites);
+    console.log("line55server")
+  } catch (e) {
+    return res.status(400).json({ e });
+  }
+});
+
+app.post('/api/addFavorite/:pokecode', async (req, res) => {
+  try {
+      const newFavorite = {id: req.params.id};
+      const result = await db.query("INSERT INTO favorites(pokecode) VALUES ($1) RETURNING *",
+          [newFavorite.pokecode],
+        );
+      console.log("line67", result.rows[0]);
+      res.json(result.rows[0]);
+  } catch (e) {
+      return res.status(400).json({ e });
+  }
+});
+
 //create the get request for students in the endpoint '/api/students'
 app.get('/api/students', async (req, res) => {
     try {

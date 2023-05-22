@@ -10,7 +10,7 @@ export default function Root({setUserObj}) {
     const {isAuthenticated, user } = useAuth0();
 
     const sendUser = (user) => {
-        fetch("/api/users", {
+        fetch("/api/user", {
             method: "POST",
             body: JSON.stringify({ user }),
             headers: {
