@@ -7,19 +7,19 @@ const Game = () => {
     const [pokemonList, setPokemonList] = useState([]);
 
     //the following is for the api call:
-    // const getPokemonList = () => {
-    //     console.log("calling api")
-    //     fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
-    //         .then((response) => response.json())
-    //         .then((pokemonListResponse) => {
-    //             console.log("calling api response", pokemonListResponse)
-    //             shuffledPokemonList(pokemonListResponse.results);
-    //         });
-    // }
-
     const getPokemonList = () => {
-        shuffledPokemonList(firstFifteenJson.results);
+        console.log("calling api")
+        fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
+            .then((response) => response.json())
+            .then((pokemonListResponse) => {
+                console.log("calling api response", pokemonListResponse)
+                shuffledPokemonList(pokemonListResponse.results);
+            });
     }
+
+    // const getPokemonList = () => {
+    //     shuffledPokemonList(firstFifteenJson.results);
+    // }
 
     const shuffledPokemonList = (pokemonListParam) => {
         const shuffled = pokemonListParam
