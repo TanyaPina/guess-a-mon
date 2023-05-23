@@ -47,16 +47,6 @@ app.post('/api/user', async (req, res) => {
     }
 });
 
-// app.get("/api/user/favorites/:email", cors() , async (req, res) => {
-//   try {
-//     const { email }  = req.params;
-//     const { rows: favorites } = await db.query("SELECT * f.userid FROM favorites f JOIN users u ON u.id = f.id WHERE email = $1",
-//     [email]);
-//     res.send(favorites);
-//   } catch (e) {
-//     return res.status(400).json({ e });
-//   }
-// });
 app.get("/api/user/favorites/:email", cors() , async (req, res) => {
   try {
     const { email }  = req.params;
@@ -68,13 +58,20 @@ app.get("/api/user/favorites/:email", cors() , async (req, res) => {
   }
 });
 
-app.post('/api/addFavorite/:pokecode', async (req, res) => {
+app.post('/api/addFavorite/:pokecode/:email', async (req, res) => {
   try {
-      const newFavorite = {id: req.params.id};
-      const result = await db.query("INSERT INTO favorites(pokecode) VALUES ($1) RETURNING *",
-          [newFavorite.pokecode],
+      const newFavorite = {pokecode: req.params.pokecode};
+      console.log(newFavorite);
+      const { email }=  req.params;
+      console.log(email);
+      console.log([newFavorite.id]);
+      const { rows: users } = await db.query("SELECT * FROM users WHERE email = $1", [email]); //will get single user where the email is a unique match
+      console.log(users);
+      const userId = users[0].id
+      const result = await db.query("INSERT INTO favorites(pokecode, userId) VALUES ($1, $2) RETURNING *",
+          [newFavorite.pokecode, userId],
         );
-      console.log("line67", result.rows[0]);
+      console.log("line71", result.rows[0]);
       res.json(result.rows[0]);
   } catch (e) {
       return res.status(400).json({ e });

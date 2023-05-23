@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import GameContainer from './GameContainer';
 import firstFifteenJson from "../../sampleresponse/firstfifteen.json"
-import ListStudents from './ListFavorites.jsx'
 
 const Game = () => {
 
