@@ -149,18 +149,12 @@ app.put('/api/students/:studentId', async (req, res) =>{
     }
   })
 
-// app.get('/', (req, res) => {
-// console.log("/ is executing")
-// res.sendFile(path.join(REACT_BUILD_DIR,
-// 'index.html'))
-// }); 
-
 app.get('*', (req, res) => {
   console.log("* is executing")
   res.sendFile(path.join(REACT_BUILD_DIR,
   'index.html'))
   });
-  
+
 // console.log that your server is up and running
 app.listen(PORT, () => {
     console.log(`Hola, Server listening on ${PORT}`);
