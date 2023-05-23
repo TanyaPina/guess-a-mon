@@ -10,6 +10,7 @@ const GameContainer = ({ pokemonList, shufflePokemonList }) => {
     const [styledImage, setStyledImage] = useState({ filter: "brightness(0)", });
     const [correctUrl, setCorrectUrl] = useState("");
     const [choseCorrectOption, setChoseCorrectOption] = useState(false);
+    const [choseWrongOption, setChoseWrongOption] = useState(false);
 
     const { isAuthenticated, user } = useAuth0();
 
@@ -43,7 +44,7 @@ const GameContainer = ({ pokemonList, shufflePokemonList }) => {
         if (correctOption.name === selectedName) {
             setChoseCorrectOption(true);
         } else {
-
+            setChoseWrongOption(true);
         }
     }
 
@@ -51,6 +52,7 @@ const GameContainer = ({ pokemonList, shufflePokemonList }) => {
         setAnswered(false);
         setStyledImage({ filter: "brightness(0)" });
         shufflePokemonList(pokemonList);
+        setChoseWrongOption(false);
     }
 
     const handleFavorite = () => {
@@ -65,6 +67,8 @@ const GameContainer = ({ pokemonList, shufflePokemonList }) => {
             .then((data) => {
                 console.log(data);
             });
+            setChoseCorrectOption(false);
+            handleShuffleClick();
     };
 
     return (
@@ -82,10 +86,11 @@ const GameContainer = ({ pokemonList, shufflePokemonList }) => {
                     <Button disabled={answered} onClick={() => { handleAnswerClick(fourPokemon[3].name) }}>{fourPokemon[3].name} </Button>
                     {/* the following is for testing :  <p>Hello! The correct pokemon is {correctOption?.name}</p> */}
                     {choseCorrectOption &&
-                        <p>Congratulations, you guessed the Pokémon right!
+                          <p>Congratulations, you guessed the Pokémon right!
                             <div><Button style={{ marginTop: "1em", marginBottom: "1em" }} onClick={handleFavorite}> Favorite </Button></div></p>}
                 </div>
                 }
+                     {choseWrongOption && <p>Oops, wrong Pokémon! Try again.</p>}
             </Container>
         </>
     );
