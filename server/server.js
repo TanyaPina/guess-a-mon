@@ -11,7 +11,7 @@ const REACT_BUILD_DIR = path.join(__dirname, "..", "client","dist");
 app.use(express.static(REACT_BUILD_DIR));
 app.use(express.json());
 
-// creates an endpoint for the route "/""
+//creates an endpoint for the route "/""
 app.get('/', (req, res) => {
     res.sendFile(path.join(REACT_BUILD_DIR, "index.html"));
 });
@@ -149,6 +149,18 @@ app.put('/api/students/:studentId', async (req, res) =>{
     }
   })
 
+// app.get('/', (req, res) => {
+// console.log("/ is executing")
+// res.sendFile(path.join(REACT_BUILD_DIR,
+// 'index.html'))
+// }); 
+
+app.get('*', (req, res) => {
+  console.log("* is executing")
+  res.sendFile(path.join(REACT_BUILD_DIR,
+  'index.html'))
+  });
+  
 // console.log that your server is up and running
 app.listen(PORT, () => {
     console.log(`Hola, Server listening on ${PORT}`);

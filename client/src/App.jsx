@@ -17,6 +17,7 @@ function App() {
   const [userObj, setUserObj] = useState(null);
   const [userFavorites, setUserFavorites] = useState([]);
 
+
   const loadFavorites = async () => {
     if (userObj && userObj.email) {
       //created a function that will get a list of products from a server using the 'fetch'
