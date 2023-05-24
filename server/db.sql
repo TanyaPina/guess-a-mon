@@ -56,42 +56,6 @@ ALTER SEQUENCE public.favorites_id_seq OWNED BY public.favorites.id;
 
 
 --
--- Name: students; Type: TABLE; Schema: public; Owner: tanyapina
---
-
-CREATE TABLE public.students (
-    id integer NOT NULL,
-    firstname character varying(255),
-    lastname character varying(255),
-    is_current boolean
-);
-
-
-ALTER TABLE public.students OWNER TO tanyapina;
-
---
--- Name: students_id_seq; Type: SEQUENCE; Schema: public; Owner: tanyapina
---
-
-CREATE SEQUENCE public.students_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.students_id_seq OWNER TO tanyapina;
-
---
--- Name: students_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tanyapina
---
-
-ALTER SEQUENCE public.students_id_seq OWNED BY public.students.id;
-
-
---
 -- Name: users; Type: TABLE; Schema: public; Owner: tanyapina
 --
 
@@ -134,13 +98,6 @@ ALTER TABLE ONLY public.favorites ALTER COLUMN id SET DEFAULT nextval('public.fa
 
 
 --
--- Name: students id; Type: DEFAULT; Schema: public; Owner: tanyapina
---
-
-ALTER TABLE ONLY public.students ALTER COLUMN id SET DEFAULT nextval('public.students_id_seq'::regclass);
-
-
---
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: tanyapina
 --
 
@@ -161,15 +118,10 @@ INSERT INTO public.favorites (id, userid, pokecode) VALUES (9, 1, 13);
 INSERT INTO public.favorites (id, userid, pokecode) VALUES (10, 1, 9);
 INSERT INTO public.favorites (id, userid, pokecode) VALUES (11, 2, 118);
 INSERT INTO public.favorites (id, userid, pokecode) VALUES (12, 1, 122);
-
-
---
--- Data for Name: students; Type: TABLE DATA; Schema: public; Owner: tanyapina
---
-
-INSERT INTO public.students (id, firstname, lastname, is_current) VALUES (2, 'Tanya ', 'Pina', NULL);
-INSERT INTO public.students (id, firstname, lastname, is_current) VALUES (3, 'Archie', 'Pina', NULL);
-INSERT INTO public.students (id, firstname, lastname, is_current) VALUES (4, 'Daisy ', 'Pina', true);
+INSERT INTO public.favorites (id, userid, pokecode) VALUES (13, 1, 116);
+INSERT INTO public.favorites (id, userid, pokecode) VALUES (14, 1, 94);
+INSERT INTO public.favorites (id, userid, pokecode) VALUES (15, 1, 51);
+INSERT INTO public.favorites (id, userid, pokecode) VALUES (16, 1, 139);
 
 
 --
@@ -184,14 +136,7 @@ INSERT INTO public.users (id, username, email) VALUES (2, 'Ash Ketchum', 'ashkpi
 -- Name: favorites_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tanyapina
 --
 
-SELECT pg_catalog.setval('public.favorites_id_seq', 12, true);
-
-
---
--- Name: students_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tanyapina
---
-
-SELECT pg_catalog.setval('public.students_id_seq', 6, true);
+SELECT pg_catalog.setval('public.favorites_id_seq', 16, true);
 
 
 --
@@ -207,14 +152,6 @@ SELECT pg_catalog.setval('public.users_id_seq', 2, true);
 
 ALTER TABLE ONLY public.favorites
     ADD CONSTRAINT favorites_pkey PRIMARY KEY (id);
-
-
---
--- Name: students students_pkey; Type: CONSTRAINT; Schema: public; Owner: tanyapina
---
-
-ALTER TABLE ONLY public.students
-    ADD CONSTRAINT students_pkey PRIMARY KEY (id);
 
 
 --
