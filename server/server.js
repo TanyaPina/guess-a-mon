@@ -16,6 +16,20 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(REACT_BUILD_DIR, "index.html"));
 });
 
+
+app.get('/api/pokemonlist', cors (), async (req, res) => {
+  try {
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
+    .then((response) => response.json())
+    .then((pokemonListResponse) => {
+        console.log("calling api response", pokemonListResponse)
+        res.send(pokemonListResponse.results);
+      });
+  } catch (e) {
+    return res.status(400).json({ e });
+  }
+});
+
 app.get('/api/user', cors (), async (req, res) => {
     try {
         const { rows: users } = await db.query("SELECT * FROM users");
@@ -30,8 +44,9 @@ app.get('/api/user', cors (), async (req, res) => {
 app.post('/api/user', async (req, res) => {
     try {
         const userAccount = req.body.user;
-        const userEmail = await db.query("SELECT * from users where email = $1", [userAccount.email,])
-        if (userEmail.rows.length === 0){
+        const queryResult = await db.query("SELECT * from users where email = $1", [userAccount.email,])
+        console.log("user email server", queryResult);
+        if (queryResult.rows.length === 0){
             const newUser = {
                 username : req.body.user.name,
                 email: req.body.user.email,
@@ -39,6 +54,9 @@ app.post('/api/user', async (req, res) => {
             const result = await db.query("INSERT INTO users(username, email) VALUES ($1,$2) RETURNING *",
             [newUser.username, newUser.email]
           );
+        } else {
+
+          let result = queryResult
         }
         console.log("line34", result.rows[0]);
         res.json(result.rows[0]);

@@ -53,6 +53,7 @@ const GameContainer = ({ pokemonList, shufflePokemonList }) => {
         setStyledImage({ filter: "brightness(0)" });
         shufflePokemonList(pokemonList);
         setChoseWrongOption(false);
+        setChoseCorrectOption(false);
     }
 
     const handleFavorite = () => {
@@ -67,7 +68,7 @@ const GameContainer = ({ pokemonList, shufflePokemonList }) => {
             .then((data) => {
                 console.log(data);
             });
-            setChoseCorrectOption(false);
+
             handleShuffleClick();
     };
 
