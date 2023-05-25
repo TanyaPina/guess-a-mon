@@ -1,27 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import GameContainer from './GameContainer';
-import firstFifteenJson from "../../sampleresponse/firstfifteen.json"
-import ListStudents from './ListFavorites.jsx'
 
 const Game = () => {
 
     const [pokemonList, setPokemonList] = useState([]);
 
-    //the following is for the api call:
-    // const getPokemonList = () => {
-    //     console.log("calling api")
-    //     fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
-    //         .then((response) => response.json())
-    //         .then((pokemonListResponse) => {
-    //             console.log("calling api response", pokemonListResponse)
-    //             shuffledPokemonList(pokemonListResponse.results);
-    //         });
-    // }
 
+    //calls the api and the shuffledPokemonList function
     const getPokemonList = () => {
-        shuffledPokemonList(firstFifteenJson.results);
+        fetch('/api/pokemonlist')
+            .then((response) => response.json())
+            .then((pokelist) => {
+                shuffledPokemonList(pokelist)
+            });
     }
 
+    //shuffles the list of pokemon that we get from the api, returning a randomly shuffled array
     const shuffledPokemonList = (pokemonListParam) => {
         const shuffled = pokemonListParam
             .map(value => ({ value, sort: Math.random() }))

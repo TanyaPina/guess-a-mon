@@ -5,10 +5,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect } from "react";
 
 
-export default function Root({setUserObj}) {
-    
-    const {isAuthenticated, user } = useAuth0();
+export default function Root({ setUserObj }) {
 
+    const { isAuthenticated, user } = useAuth0();
+
+    //sends user to the backend
     const sendUser = (user) => {
         fetch("/api/user", {
             method: "POST",
@@ -17,27 +18,22 @@ export default function Root({setUserObj}) {
                 "Content-type": "application/json",
             },
         })
-            .then((response) => response.json()) 
-            .then((data) => {
-                console.log(data);
-            });
+            .then((response) => response.json());
     };
 
     useEffect(() => {
         if (isAuthenticated) {
-            setUserObj(user); 
+            setUserObj(user);
             sendUser(user);
         }
     }, [isAuthenticated, user, setUserObj]);
 
     return (
-        <>
+        <div>
+            <MyNavBar />
             <div>
-                <MyNavBar />
-                <div>
-                    <Outlet />
-                </div>
+                <Outlet />
             </div>
-        </>
+        </div>
     );
 };
