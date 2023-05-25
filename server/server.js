@@ -10,6 +10,8 @@ app.use(cors());
 const REACT_BUILD_DIR = path.join(__dirname, "..", "client","dist");
 app.use(express.static(REACT_BUILD_DIR));
 app.use(express.json());
+const fetch = require("node-fetch");
+
 
 //creates an endpoint for the route "/""
 app.get('/', (req, res) => {
