@@ -8,7 +8,6 @@ const Game = () => {
 
     //calls the api and the shuffledPokemonList function
     const getPokemonList = () => {
-        console.log("calling api")
         fetch('/api/pokemonlist')
             .then((response) => response.json())
             .then((pokelist) => {
