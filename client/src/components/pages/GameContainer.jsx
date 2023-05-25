@@ -12,7 +12,7 @@ const GameContainer = ({ pokemonList, shufflePokemonList }) => {
     const [choseCorrectOption, setChoseCorrectOption] = useState(false);
     const [choseWrongOption, setChoseWrongOption] = useState(false);
 
-    const { isAuthenticated, user } = useAuth0();
+    const { user } = useAuth0();
 
 
     useEffect(() => {
@@ -69,7 +69,7 @@ const GameContainer = ({ pokemonList, shufflePokemonList }) => {
                 console.log(data);
             });
 
-            handleShuffleClick();
+        handleShuffleClick();
     };
 
     return (
@@ -81,17 +81,15 @@ const GameContainer = ({ pokemonList, shufflePokemonList }) => {
                 <img src={correctUrl} style={styledImage} />
                 <p><Button onClick={handleShuffleClick}> Shuffle </Button></p>
                 {fourPokemon.length >= 4 && <div>
-                    <Button disabled={answered} onClick={() => { handleAnswerClick(fourPokemon[0].name) }}>{fourPokemon[0].name} </Button>
-                    <Button disabled={answered} onClick={() => { handleAnswerClick(fourPokemon[1].name) }}>{fourPokemon[1].name} </Button>
-                    <Button disabled={answered} onClick={() => { handleAnswerClick(fourPokemon[2].name) }}>{fourPokemon[2].name} </Button>
-                    <Button disabled={answered} onClick={() => { handleAnswerClick(fourPokemon[3].name) }}>{fourPokemon[3].name} </Button>
-                    {/* the following is for testing :  <p>Hello! The correct pokemon is {correctOption?.name}</p> */}
+                    {fourPokemon.map((pokemon) => {
+                        return <Button disabled={answered} onClick={() => {handleAnswerClick(pokemon.name)}}>{pokemon.name} </Button>
+                    })}
                     {choseCorrectOption &&
-                          <p>Congratulations, you guessed the Pokémon right!
+                        <p>Congratulations, you guessed the Pokémon right!
                             <div><Button style={{ marginTop: "1em", marginBottom: "1em" }} onClick={handleFavorite}> Favorite </Button></div></p>}
                 </div>
                 }
-                     {choseWrongOption && <p>Oops, wrong Pokémon! Try again.</p>}
+                {choseWrongOption && <p>Oops, wrong Pokémon! Try again.</p>}
             </Container>
         </>
     );
