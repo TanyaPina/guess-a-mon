@@ -14,28 +14,33 @@ const GameContainer = ({ pokemonList, shufflePokemonList }) => {
 
     const { user } = useAuth0();
 
-
+    //selects four pokemon from our list
     useEffect(() => {
         setFourPokemon([...pokemonList].splice(0, 4));
     }, [pokemonList]);
 
+    //selects a random pokemon from our four to be the correct option
     useEffect(() => {
         setCorrectOption(fourPokemon[Math.floor(Math.random() * fourPokemon.length)]);
     }, [fourPokemon])
 
+    //calls the getPokemonNumber function
     useEffect(() => {
-        const pokeNumber = correctOption?.url ? getPokeNumber(correctOption.url) : 214;
+        const pokeNumber = correctOption?.url ? getPokeNumber(correctOption.url) : 132;
         getCorrectImage(pokeNumber);
     }, [correctOption])
 
+    //extracts the pokemon number from the url of the correct option 
     const getPokeNumber = (url) => {
         const numberRegEx = /(\d+)\/$/;
         return ((url.match(numberRegEx) || [])[1]);
     }
 
+    //gets the image of the pokemon using the pokemon number
     const getCorrectImage = (number) =>
         setCorrectUrl(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png`);
 
+    //reveals pokemon and sets correct option state to true or false, depending on which option the user selected        
     const handleAnswerClick = (selectedName) => {
         setAnswered(true);
         setStyledImage({
@@ -48,6 +53,7 @@ const GameContainer = ({ pokemonList, shufflePokemonList }) => {
         }
     }
 
+    //reshuffles the pokemon, hides it and sets answered,wrong option, and correct option state to false
     const handleShuffleClick = () => {
         setAnswered(false);
         setStyledImage({ filter: "brightness(0)" });
@@ -56,6 +62,7 @@ const GameContainer = ({ pokemonList, shufflePokemonList }) => {
         setChoseCorrectOption(false);
     }
 
+    // adds pokemon to the user's favorites and then calls the handleShuffleClick function
     const handleFavorite = () => {
         const number = getPokeNumber(correctOption.url);
         fetch(`/api/addFavorite/${number}/${user.email}`, {
@@ -64,11 +71,7 @@ const GameContainer = ({ pokemonList, shufflePokemonList }) => {
                 "Content-type": "application/json",
             },
         })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-            });
-
+            .then((response) => response.json());
         handleShuffleClick();
     };
 
@@ -82,7 +85,7 @@ const GameContainer = ({ pokemonList, shufflePokemonList }) => {
                 <p><Button onClick={handleShuffleClick}> Shuffle </Button></p>
                 {fourPokemon.length >= 4 && <div>
                     {fourPokemon.map((pokemon) => {
-                        return <Button disabled={answered} onClick={() => {handleAnswerClick(pokemon.name)}}>{pokemon.name} </Button>
+                        return <Button disabled={answered} onClick={() => { handleAnswerClick(pokemon.name) }}>{pokemon.name} </Button>
                     })}
                     {choseCorrectOption &&
                         <p>Congratulations, you guessed the Pokémon right!
