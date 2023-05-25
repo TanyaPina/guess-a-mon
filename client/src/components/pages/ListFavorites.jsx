@@ -1,75 +1,18 @@
-import React, { useState, useEffect } from 'react'
-import * as ioicons from 'react-icons/io5'
 import FavoriteCard from '../FavoriteCard';
 
-const ListFavorites = ({userFavorites, setUserFavorites}) => {
-console.log(userFavorites);
-    // this is my original state with an array of students 
-    const [students, setStudents] = useState([]);
-
-    //this is the state needed for the UpdateRequest
-    const [editingStudent, setEditingStudent] = useState(null)
-
-    const loadStudents = () => {
-        // A function to fetch the list of students that will be load anytime that list change
-        fetch("/api/students")
-            .then((response) => response.json())
-            .then((students) => {
-                setStudents(students);
-            });
-    }
-
-    const onSaveStudent = (newStudent) => {
-        //console.log(newStudent, "From the parent - List of Students");
-        setStudents((students) => [...students, newStudent]);
-    }
-
-    //A function to control the update in the parent (student component)
-    const updateStudent = (savedStudent) => {
-        // console.log("Line 29 savedStudent", savedStudent);
-        // This function should update the whole list of students - 
-        loadStudents();
-    }
-
-    //A function to handle the Delete funtionality
-    const onDelete = (student) => {
-        //console.log(student, "delete method")
-        return fetch(`api/students/${student.id}`, {
-            method: "DELETE"
-        }).then((response) => {
-            //console.log(response);
-            if (response.ok) {
-                loadStudents();
-            }
-        })
-    }
-
-    //A function to handle the Update functionality
-    const onUpdate = (toUpdateStudent) => {
-        //console.log(toUpdateStudent);
-        setEditingStudent(toUpdateStudent);
-
-    }
-
-
+const ListFavorites = ({ userFavorites }) => {
 
     return (
-        <>
-        <div className="mybody">
-        <div className="list-students">
-            <h2>Favorites</h2>
-            <ul>
-                {/* {students.map((student) => {
-                    return <li key={student.id}> <Student student={student} toDelete={onDelete} toUpdate={onUpdate} /></li>
-                })} */}
-                  {userFavorites.map((favorite) => {
-                    return <li key={favorite.id}> <FavoriteCard favorite={favorite} toDelete={onDelete} toUpdate={onUpdate} /></li>
-                })}
-            </ul>
-        </div>
-        {/* <MyForm key={editingStudent ? editingStudent.id : null} onSaveStudent={onSaveStudent} editingStudent={editingStudent} onUpdateStudent={updateStudent} /> */}
-        </div>
-        </>
+            <div className="mybody">
+                <div className="list-favorites">
+                    <h2>Favorites</h2>
+                    <ul>
+                        {userFavorites.map((favorite) => {
+                            return <li key={favorite.id}> <FavoriteCard favorite={favorite}/></li>
+                        })}
+                    </ul>
+                </div>
+            </div>
     );
 }
 

@@ -3,14 +3,6 @@ import Card from 'react-bootstrap/Card';
 
 const FavoriteCard = ({ favorite }) => {
 
-    const onUpdate = (toUpdateStudent) => {
-        toUpdate(toUpdateStudent)
-    }
-
-    const onDelete = (toDeleteStudent) => {
-        toDelete(toDeleteStudent)
-    }
-
     return (
         <Card>
             <Card.Body>
