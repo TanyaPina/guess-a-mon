@@ -9,6 +9,7 @@
  <li>API Reference</li>
  <li>Technologies Used</li>
  <li>Installation</li>
+ <li>Contact Me</li>
 </ul>
 
 ## About
@@ -125,3 +126,6 @@ Step 7: Run both servers by opening a new terminal and by switching over to the 
  cd server
  npm run dev
 ```
+## Contact Me
+
+Thank you for stopping by, I hope that you had fun! Feel free to reach out to me on [LinkedIn](https://www.linkedin.com/in/tanyapina) for any comments or questions. 
