@@ -27,7 +27,7 @@ test('Home renders correctly', () => {
   expect(<Home />).toBeDefined();
 });
 
-
+//TODO: tests if GameContainer renders -failed because pokemonList is not iterable
 // test('Game renders correctly', () => {
 //   render(<Game />);
 //   expect(<Game/>).toBeDefined();
