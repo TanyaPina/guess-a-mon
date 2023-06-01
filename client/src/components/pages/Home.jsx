@@ -10,7 +10,7 @@ const Home = () => {
         <>
             <div
                 style={{
-                    backgroundImage: "url('http://localhost:5173/homeback.png')",
+                    backgroundImage: "url('/homeback.png')",
                     height: "100vh",
                     margin: "0px",
                     fontSize: '50px',
